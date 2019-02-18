@@ -16,17 +16,17 @@ class ElasticHelpers
     {
 
         $indexExists = \Elasticsearch::connection()->indices()->exists([
-            "index" => env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve1")
+            "index" => env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve2")
         ]);
         if ($indexExists) {
             $deleteIndexArgs = [
-                "index" => env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve1"),
+                "index" => env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve2"),
             ];
             \Elasticsearch::connection()->indices()->delete($deleteIndexArgs);
         }
 
         $createIndexArgs = [
-            "index" => env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve1"),
+            "index" => env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve2"),
         ];
         $createIndexArgs["body"] = <<<HERE
 {

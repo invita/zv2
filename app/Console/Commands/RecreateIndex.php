@@ -43,7 +43,7 @@ class RecreateIndex extends Command
     {
         if ($this->confirm('Are you sure you wish to recreate index?', true)) {
             ElasticHelpers::recreateIndex();
-            $this->info("Index '".env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve1")."' recreated");
+            $this->info("Index '".env("SI4_ELASTIC_ZRTVE_INDEX", "zrtve2")."' recreated");
         }
     }
 }

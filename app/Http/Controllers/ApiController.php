@@ -66,7 +66,7 @@ class ApiController extends Controller
             $lang = "sl";
 
         App::setLocale($lang);
-        $result = Lang::get("zrtve1");
+        $result = Lang::get("zrtve2");
         return json_encode($result);
     }
 

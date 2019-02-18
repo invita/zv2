@@ -20,8 +20,8 @@ class ContentBuilder
 
         $lang = App::getLocale();
         $query = <<<HERE
-            SELECT * FROM NAV_GLAVNA_TABELA_ZRTVE1 gt
-                INNER JOIN NAV_STRUCTURE_ZRTVE1 s ON s.ID = gt.ID
+            SELECT * FROM NAV_GLAVNA_TABELA_ZRTVE2 gt
+                INNER JOIN NAV_STRUCTURE_ZRTVE2 s ON s.ID = gt.ID
                 WHERE gt.language='{$lang}' AND s.ID = {$menuId}
                 LIMIT 1
 HERE;
@@ -33,8 +33,8 @@ HERE;
     public static function getHtmlForFirstPage() {
         $lang = App::getLocale();
         $query = <<<HERE
-            SELECT * FROM NAV_GLAVNA_TABELA_ZRTVE1 gt
-                INNER JOIN NAV_STRUCTURE_ZRTVE1 s ON s.ID = gt.ID
+            SELECT * FROM NAV_GLAVNA_TABELA_ZRTVE2 gt
+                INNER JOIN NAV_STRUCTURE_ZRTVE2 s ON s.ID = gt.ID
                 WHERE gt.language='{$lang}' AND s.FIRST_PAGE = 1
                 LIMIT 1
 HERE;

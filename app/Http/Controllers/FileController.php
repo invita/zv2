@@ -26,7 +26,7 @@ class FileController extends Controller
 
             $html = '<style>body { font-family: DejaVu Sans; }</style>';
             $html .= '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-            $html .= '<h3>'.__("zrtve1.pdf_title").': '.$id.'</h3>';
+            $html .= '<h3>'.__("zrtve2.pdf_title").': '.$id.'</h3>';
 
             $fields = [
                 "ID", "PRIIMEK", "PRIIMEK2", "IME", "STARSI",
@@ -42,7 +42,7 @@ class FileController extends Controller
                 if (!$val) continue;
 
                 $html .= '<div style="font-size:12px;padding:3px; background-color:'.($idx%2 ? 'white':'#F9F9F9').'">';
-                $html .= '  <span style="font-weight:bold; width:150px;">'.__("zrtve1.field_".$key). ':</span> '.
+                $html .= '  <span style="font-weight:bold; width:150px;">'.__("zrtve2.field_".$key). ':</span> '.
                          '  <span style="">' .$val .'</span>';
                 $html .= '</div>';
 

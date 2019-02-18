@@ -22,7 +22,7 @@ class ReindexZrtve extends Command
      *
      * @var string
      */
-    protected $description = 'Reindex zrtve1 from database into elastic';
+    protected $description = 'Reindex zrtve2 from database into elastic';
 
     /**
      * Create a new command instance.

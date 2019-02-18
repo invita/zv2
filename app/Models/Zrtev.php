@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Zrtev extends Model
 {
-    protected $table = 'ZRT1_GLAVNA_TABELA';
+    protected $table = 'ZRT2_GLAVNA_TABELA';
     protected $fillable = [
         'ID',
         'PRIIMEK',

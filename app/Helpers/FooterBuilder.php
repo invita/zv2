@@ -23,11 +23,11 @@ class FooterBuilder
         $lang = App::getLocale();
 
         $query = <<<HERE
-            SELECT NAV_GLAVNA_TABELA_ZRTVE1.id, parent_id, title, link
-            FROM NAV_GLAVNA_TABELA_ZRTVE1
-            INNER JOIN NAV_STRUCTURE_ZRTVE1 ON NAV_STRUCTURE_ZRTVE1.ID = NAV_GLAVNA_TABELA_ZRTVE1.ID
+            SELECT NAV_GLAVNA_TABELA_ZRTVE2.id, parent_id, title, link
+            FROM NAV_GLAVNA_TABELA_ZRTVE2
+            INNER JOIN NAV_STRUCTURE_ZRTVE2 ON NAV_STRUCTURE_ZRTVE2.ID = NAV_GLAVNA_TABELA_ZRTVE2.ID
             WHERE language='{$lang}' AND STATUS=1
-            ORDER BY NAV_GLAVNA_TABELA_ZRTVE1.order
+            ORDER BY NAV_GLAVNA_TABELA_ZRTVE2.order
 HERE;
 
         $items = DB::select($query);
