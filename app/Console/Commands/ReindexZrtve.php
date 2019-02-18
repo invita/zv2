@@ -42,7 +42,7 @@ class ReindexZrtve extends Command
     public function handle()
     {
 
-        if ($this->confirm('Are you sure you wish to reindex all zrtve 1. sv?', true)) {
+        if ($this->confirm('Are you sure you wish to reindex all zrtve 2. sv?', true)) {
 
             ElasticHelpers::recreateIndex();
 
