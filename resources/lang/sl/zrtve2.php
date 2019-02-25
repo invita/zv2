@@ -49,6 +49,5 @@ return [
     'text_downloadPdf' => 'Prenesi PDF',
 
     // PDF report
-    'pdf_title' => 'Žrtev 1. sv. vojne',
-
+    'pdf_title' => 'Žrtev 2. sv. vojne',
 ];

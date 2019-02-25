@@ -49,5 +49,5 @@ return [
     'text_downloadPdf' => 'Download PDF',
 
     // PDF report
-    'pdf_title' => '1st world war death',
+    'pdf_title' => '2nd world war death',
 ];
