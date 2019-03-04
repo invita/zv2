@@ -48,6 +48,9 @@ return [
     'text_back' => 'Nazaj',
     'text_downloadPdf' => 'Prenesi PDF',
 
+    // Chart
+    'chart_button_refresh' => 'Osveži graf',
+
     // PDF report
     'pdf_title' => 'Žrtev 2. sv. vojne',
 ];
