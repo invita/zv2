@@ -17,8 +17,8 @@ class ChartController extends Controller
         $munics = ElasticHelpers::distinctObcina();
 
         $types = [
-            ["key" => "bar", "value" => "Bar chart"],
-            ["key" => "line", "value" => "Line chart"],
+            ["key" => "bar", "value" => __("zrtve2.chart_field_chartType_bar")],
+            ["key" => "line", "value" => __("zrtve2.chart_field_chartType_line")],
         ];
         $froms = self::dateInterval($lang, '1939-01', '1945-12');
         $tos = self::dateInterval($lang, '1939-01', '1945-12');
