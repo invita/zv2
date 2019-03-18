@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Zrtev;
+use Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Illuminate\Http\Request;
 use App\Helpers\ElasticHelpers;
 use Illuminate\Support\Facades\App;
@@ -24,33 +26,72 @@ class ApiController extends Controller
     {
         $input =  file_get_contents("php://input");
         $inputJson = json_decode($input, true);
-        $q = $inputJson["staticData"]["q"];
 
-        $pageStart = $inputJson["pageStart"];
-        $pageCount = $inputJson["pageCount"];
-        $sortField = $inputJson["sortField"];
-        $sortOrder = $inputJson["sortOrder"];
+        $q = "*";
+        if (isset($inputJson["q"])) $q = $inputJson["q"];
+        if (isset($inputJson["staticData"]) && isset($inputJson["staticData"]["q"])) $q = $inputJson["staticData"]["q"];
+
+        $pageStart = isset($inputJson["pageStart"]) ? $inputJson["pageStart"] : 0;
+        $pageCount = isset($inputJson["pageCount"]) ? $inputJson["pageCount"] : 20;
+        $sortField = isset($inputJson["sortField"]) ? $inputJson["sortField"] : "ID";
+        $sortOrder = isset($inputJson["sortOrder"]) ? $inputJson["sortOrder"] : "asc";
 
         $filter = $inputJson["filter"];
 
         $zrtve = [];
         $rowCount = 0;
-        if ($q) {
-            $zrtveElastic = ElasticHelpers::search($q, $filter, $pageStart, $pageCount, $sortField, $sortOrder);
+        $error = "";
+        $status = true;
 
-            $rowCount = $zrtveElastic["hits"]["total"];
-            $zrtve = ElasticHelpers::elasticResultToSimpleArray($zrtveElastic);
+        try {
+            if ($q) {
+                $zrtveElastic = ElasticHelpers::search($q, $filter, $pageStart, $pageCount, $sortField, $sortOrder);
+
+                $rowCount = $zrtveElastic["hits"]["total"];
+                $zrtve = ElasticHelpers::elasticResultToSimpleArray($zrtveElastic);
+            }
+        } catch (\Exception $e) {
+            if ($e instanceof ElasticsearchException) {
+                $elasticE = json_decode($e->getMessage(), true);
+                $status = false;
+                if (isset($elasticE["error"]) && isset($elasticE["error"]["root_cause"])) {
+                    $eRoots = $elasticE["error"]["root_cause"];
+                    foreach ($eRoots as $eRoot) {
+                        if (isset($eRoot["reason"])) {
+                            if ($error) $error .= "; ";
+                            $error .= $eRoot["reason"];
+                        }
+                    }
+                }
+                if (!$error) {
+                    $error = get_class($e) .": ". $e->getMessage();
+                }
+            } else {
+                $status = false;
+                $error = get_class($e) .": ". $e->getMessage();
+            }
         }
-
 
         //print_r($zrtveElastic);
 
         $result = array(
-            "q" => $q,
-            "rowCount" => $rowCount,
-            "status" => true,
-            "data" => $zrtve,
+            "request" => [
+                "q" => $q,
+                "filter" => $filter,
+                "pageStart" => $pageStart,
+                "pageCount" => $pageCount,
+                "sortField" => $sortField,
+                "sortOrder" => $sortOrder,
+            ],
+            "status" => $status,
         );
+
+        if ($status) {
+            $result["rowCount"] = $rowCount;
+            $result["data"] = $zrtve;
+        } else {
+            $result["error"] = $error;
+        }
 
         return response(json_encode($result))->header('Content-Type', 'application/json');
     }
