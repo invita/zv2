@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Zrtev;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Illuminate\Http\Request;
 use App\Helpers\ElasticHelpers;
